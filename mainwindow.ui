@@ -43,9 +43,33 @@
       <x>40</x>
       <y>10</y>
       <width>601</width>
-      <height>75</height>
+      <height>71</height>
      </rect>
     </property>
+   </widget>
+   <widget class="QSpinBox" name="input1">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>90</y>
+      <width>48</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+   </widget>
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>90</y>
+      <width>371</width>
+      <height>211</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="grid"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

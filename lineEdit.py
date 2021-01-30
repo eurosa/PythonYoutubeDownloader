@@ -48,8 +48,7 @@ class Widget(QWidget):
     def add_new_line_text(self):
         line_text = QLineEdit("bar")
         self.widget.layout().insertWidget(self.widget.layout().count() - 1, line_text)
-        print(str(self.widget.layout().count() - 1)+" "+str(line_text))
-
+        print(str(self.widget.layout().count() - 1) + " " + str(line_text))
 
 
 if __name__ == '__main__':
