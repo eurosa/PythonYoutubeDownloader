@@ -1,33 +1,12 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLineEdit, QLabel, QSpinBox, QGridLayout
-# from pytube import YouTube
-from pytube import YouTube
-import mainwindow
-
-list_urls = ['https://youtu.be/HhMgOcAiAlE',
-             'https://www.youtube.com/watch?v=D5NK5qMM14g']
+from PyQt5.QtWidgets import (QLineEdit, QLabel, QGridLayout, QWidget,
+                             QPushButton, QApplication, QSpinBox)
 
 
-# create class for our Raspberry Pi GUI
-class MainWindow(QMainWindow, mainwindow.Ui_MainWindow):
+class Window(QWidget):
     def __init__(self):
-        super(self.__class__, self).__init__()
-        self.ui = mainwindow.Ui_MainWindow()
-        self.ui.setupUi(self)  # gets defined in the UI file
-        # self.setStyleSheet("background-color: yellow;")
-
-        self.ui.getAllStrem.clicked.connect(self.addtextbox)
-
-    def youTubeVideo(self):
-        for url in list_urls:
-
-            try:
-                yt_obj = YouTube(url)
-                yt_obj.streams.get_highest_resolution().download()
-            except Exception as e:
-                print(e)
-                raise Exception('Some exception occurred.')
-            print('All YouTube videos downloaded successfully.')
+        super().__init__()
+        self.home()
 
     def home(self):
         self.grid = QGridLayout()
@@ -58,20 +37,20 @@ class MainWindow(QMainWindow, mainwindow.Ui_MainWindow):
                 w.hide()
         self.lineEdits = []  # +++
 
-        for n in range(self.ui.input1.value()):
+        for n in range(self.input1.value()):
             self.bursttime = QLabel(self)
             self.bursttime.setText("b_{}".format(n))
 
             self.timeinput = QLineEdit(self)
             self.timeinput.textChanged.connect(lambda text, i=n: self.editChanged(text, i))  # +++
 
-            self.ui.grid.addWidget(self.bursttime, 2 * n + 1, 0)
-            self.ui.grid.addWidget(self.timeinput, 2 * n + 1, 1)
+            self.grid.addWidget(self.bursttime, 2 * n + 1, 0)
+            self.grid.addWidget(self.timeinput, 2 * n + 1, 1)
 
             self.lineEdits.append('')  # +++
 
         self.go = QPushButton("GO")  # , self)
-        self.ui.grid.addWidget(self.go, 2 * n + 2, 0)
+        self.grid.addWidget(self.go, 2 * n + 2, 0)
         self.go.clicked.connect(self.printvalues)
 
     def printvalues(self):
@@ -86,18 +65,10 @@ class MainWindow(QMainWindow, mainwindow.Ui_MainWindow):
         print("def addCheckbox(self):")
 
 
-def main():
-    # a new app instance
-    app = QApplication(sys.argv)
-    app.setStyle("QtCurve")  # dataModel.get_power_on_image_path()
-    form = MainWindow()
-    form.show()
-    # without this, the script exits immediately.
-    sys.exit(app.exec_())
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    main()
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+if __name__ == "__main__":
+    application = QApplication(sys.argv)
+    window = Window()
+    window.setWindowTitle('Dynamically adding textboxes using a push button')
+    window.resize(250, 180)
+    window.show()
+    sys.exit(application.exec_())
