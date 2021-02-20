@@ -78,6 +78,13 @@ class MainWindow(QMainWindow, mainwindow.Ui_MainWindow):
         # fetch data in some way
         for i, v in enumerate(self.lineEdits):  # +++
             print("bursttime: b_{}, timeinput: {}".format(i, v))  # +++
+            try:
+                yt_obj = YouTube(v)
+                yt_obj.streams.get_highest_resolution().download()
+            except Exception as e:
+                print(e)
+                raise Exception('Some exception occurred.')
+            print('All YouTube videos downloaded successfully.')
 
     def editChanged(self, text, i):  # +++
         self.lineEdits[i] = text  # +++
